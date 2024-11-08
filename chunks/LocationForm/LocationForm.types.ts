@@ -14,6 +14,7 @@ export type LocationTypeOption = {
 export type LocationField = TextboxProps & {
   name: keyof LocationFormData;
   dependsOn?: keyof LocationFormData;
+  dependants?: (keyof LocationFormData)[];
 };
 
 export type FlexibilityOption = {

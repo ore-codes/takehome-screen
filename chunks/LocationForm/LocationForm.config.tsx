@@ -28,6 +28,7 @@ export const locationTypes: LocationTypeOption[] = [
 export const locationFields: LocationField[] = [
   {
     name: 'localGovernment',
+    dependants: ['houseAddress', 'closestBusStop', 'landmarks'],
     placeholder: 'Local government',
     accessoryRight: (
       <View style={styles.textboxIconWrapper}>
@@ -37,11 +38,13 @@ export const locationFields: LocationField[] = [
   },
   {
     name: 'houseAddress',
+    dependants: ['closestBusStop', 'landmarks'],
     dependsOn: 'localGovernment',
     placeholder: 'House address',
   },
   {
     name: 'closestBusStop',
+    dependants: ['landmarks'],
     dependsOn: 'houseAddress',
     placeholder: 'Closest bus stop',
   },

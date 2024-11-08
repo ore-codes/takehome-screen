@@ -17,7 +17,7 @@ import {
   locationFields,
   locationTypes,
 } from '@/chunks/LocationForm/LocationForm.config';
-import FormInput from '@/components/FormInput/FormInput';
+import Textbox from '@/components/Textbox/Textbox';
 
 const LocationForm: FC = () => {
   const h = useLocationForm();
@@ -47,10 +47,19 @@ const LocationForm: FC = () => {
             Where do you want the task done?
           </Text>
           <View style={styles.taskLocationsContainer}>
-            {locationFields.map(({ name, dependsOn, ...props }) => (
+            {locationFields.map(({ name, dependants, dependsOn, ...props }) => (
               <View key={name}>
                 {(!dependsOn || !!(h.form.watch(dependsOn) as string)?.length) && (
-                  <FormInput control={h.form.control} name={name} {...props} />
+                  <Textbox
+                    value={h.form.watch(name) as string}
+                    onChangeText={text => {
+                      h.setValue(name, text);
+                      if (!text.length) {
+                        dependants?.forEach(dep => h.setValue(dep, undefined));
+                      }
+                    }}
+                    {...props}
+                  />
                 )}
               </View>
             ))}
@@ -105,10 +114,10 @@ const LocationForm: FC = () => {
       <View style={{ flex: 1 }} />
       <Button
         disabled={!h.form.formState.isValid}
-        onPress={h.form.handleSubmit(
-          () => alert('success'),
-          () => alert('error'),
-        )}>
+        onPress={h.form.handleSubmit(() => {
+          h.form.reset();
+          alert('success');
+        })}>
         Continue
       </Button>
     </KeyboardAwareScrollView>
