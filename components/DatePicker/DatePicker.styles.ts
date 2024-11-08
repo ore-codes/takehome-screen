@@ -3,6 +3,7 @@ import { Colors } from '@/constants/Colors';
 
 const DatePickerStyles = StyleSheet.create({
   trigger: {
+    marginTop: 20,
     paddingHorizontal: 16,
     paddingVertical: 14,
     flexDirection: 'row',

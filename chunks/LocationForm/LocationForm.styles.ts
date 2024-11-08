@@ -39,7 +39,6 @@ const LocationFormStyles = StyleSheet.create({
     height: 24,
   },
   selectFlexibility: {
-    marginBottom: 20,
     flexDirection: 'row',
     columnGap: 13,
   },
