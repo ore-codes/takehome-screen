@@ -13,5 +13,10 @@ export default function useLocationForm() {
   const deadlineFlexibility = form.watch('deadlineFlexibility');
   const certainTime = form.watch('certainTime');
 
-  return { form, locationType, deadlineFlexibility, certainTime };
+  const setValue = (key: keyof LocationFormData, value: LocationFormData[typeof key]) => {
+    form.setValue(key, value);
+    form.trigger('deadlineTime');
+  };
+
+  return { form, locationType, deadlineFlexibility, certainTime, setValue };
 }

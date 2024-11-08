@@ -37,7 +37,7 @@ const LocationForm: FC = () => {
             isActive={h.locationType === location.value}
             title={location.title}
             description={location.description}
-            onPress={() => h.form.setValue('locationType', location.value)}
+            onPress={() => h.setValue('locationType', location.value)}
           />
         ))}
       </View>
@@ -66,7 +66,7 @@ const LocationForm: FC = () => {
             {flexibilityOptions.map(option => (
               <Checkbox
                 key={option.value}
-                onPress={() => h.form.setValue('deadlineFlexibility', option.value)}
+                onPress={() => h.setValue('deadlineFlexibility', option.value)}
                 selected={option.value === h.deadlineFlexibility}
                 label={option.label}
               />
@@ -75,13 +75,13 @@ const LocationForm: FC = () => {
           {h.deadlineFlexibility === 'on date' && (
             <DatePicker
               value={h.form.watch('deadline')}
-              onChangeText={text => h.form.setValue('deadline', text)}
+              onChangeText={text => h.setValue('deadline', text)}
             />
           )}
           {(!!h.form.watch('deadline') || h.deadlineFlexibility === 'flexible') && (
             <TouchableOpacity
               style={styles.needCertainDay}
-              onPress={() => h.form.setValue('certainTime', !h.certainTime)}>
+              onPress={() => h.setValue('certainTime', !h.certainTime)}>
               {h.certainTime ? <SelectedIcon /> : <DeselectedIcon />}
               <Text font="semibold">I need a certain time of day</Text>
             </TouchableOpacity>
@@ -95,7 +95,7 @@ const LocationForm: FC = () => {
                   icon={option.icon}
                   title={option.title}
                   range={option.range}
-                  onPress={() => h.form.setValue('deadlineTime', option.value)}
+                  onPress={() => h.setValue('deadlineTime', option.value)}
                 />
               ))}
             </>
