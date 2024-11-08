@@ -57,7 +57,7 @@ const LocationForm: FC = () => {
           </View>
         </>
       )}
-      {h.showRemainingFields && (
+      {(!!h.form.watch('landmarks')?.length || h.locationType === 'on site') && (
         <>
           <Text font="semibold" style={styles.label}>
             When do you need this done?
@@ -78,28 +78,26 @@ const LocationForm: FC = () => {
               onChangeText={text => h.form.setValue('deadline', text)}
             />
           )}
-          {!!h.deadlineFlexibility && (
+          {(!!h.form.watch('deadline') || h.deadlineFlexibility === 'flexible') && (
+            <TouchableOpacity
+              style={styles.needCertainDay}
+              onPress={() => h.form.setValue('certainTime', !h.certainTime)}>
+              {h.certainTime ? <SelectedIcon /> : <DeselectedIcon />}
+              <Text font="semibold">I need a certain time of day</Text>
+            </TouchableOpacity>
+          )}
+          {!!h.deadlineFlexibility && h.certainTime && (
             <>
-              <TouchableOpacity
-                style={styles.needCertainDay}
-                onPress={() => h.form.setValue('certainTime', !h.certainTime)}>
-                {h.certainTime ? <SelectedIcon /> : <DeselectedIcon />}
-                <Text font="semibold">I need a certain time of day</Text>
-              </TouchableOpacity>
-              {h.certainTime && (
-                <>
-                  {daytimeOptions.map(option => (
-                    <DayTimeRadio
-                      key={option.value}
-                      selected={option.value === h.form.watch('deadlineTime')}
-                      icon={option.icon}
-                      title={option.title}
-                      range={option.range}
-                      onPress={() => h.form.setValue('deadlineTime', option.value)}
-                    />
-                  ))}
-                </>
-              )}
+              {daytimeOptions.map(option => (
+                <DayTimeRadio
+                  key={option.value}
+                  selected={option.value === h.form.watch('deadlineTime')}
+                  icon={option.icon}
+                  title={option.title}
+                  range={option.range}
+                  onPress={() => h.form.setValue('deadlineTime', option.value)}
+                />
+              ))}
             </>
           )}
         </>
