@@ -9,6 +9,8 @@ const TextboxStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: Colors.light,
+    borderWidth: 1.5,
+    borderColor: Colors.light,
     borderRadius: 8,
   },
   containerFocused: {
